@@ -3,3 +3,6 @@ This ia a test
 What does this look like after a squash merge?
 
 What does this look like after a rebase merge?
+
+Lets test rebase merge with mutlple commits/authors.
+ - First one
