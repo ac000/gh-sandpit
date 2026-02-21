@@ -2,7 +2,7 @@ name: Mark Stale Pull Requests
 
 on:
   schedule:
-    - cron: '10 2 * * *'  # Run every day at 02:10
+    - cron: '55 14 * * *'  # Run every day at 02:10
 
 env:
   PR_STALE_DAYS: 1
@@ -17,8 +17,8 @@ jobs:
       - name: Mark stale pull requests
         uses: actions/stale@v5
         with:
-          stale-pr-message: "This pull request has been automatically marked 'stale' because it has been inactive for more than $PR_STALE_DAYS days."
-          days-before-stale: $PR_STALE_DAYS
+          stale-pr-message: "This pull request has been automatically marked 'stale' because it has been inactive for more than ${{ env.PR_STALE_DAYS }} days."
+          days-before-stale: ${{ env.PR_STALE_DAYS }}
           days-before-issue-stale: -1
           days-before-close: -1
           stale-pr-label: stale
