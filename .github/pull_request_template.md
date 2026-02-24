@@ -1,55 +1,33 @@
-## Summary
-What does this change do?
+## Problem
+Briefly describe the issue or feature being addressed.
 
-## Why
-Why is this change needed?
-
-## Commit hygiene checklist
-- [ ] Each commit is a single logical change
-      (no mixed refactor + behaviour changes)
-- [ ] Commit subject <= 72 chars
-- [ ] Body lines wrapped after 72 chars (if body exists)
-      (except for things like URIs, command/log output etc)
-- [ ] (Recommended) Subject uses imperative mood
-- [ ] (Recommended) Subject does not end with a period
+## Solution
+Explain your approach and any important design decisions.
 
 ## Testing
-How did you test this?
-- [ ] Unit tests
-- [ ] Integration tests
-- [ ] Manual validation
-- [ ] Not applicable (explain why)
+Describe how you tested the change (manual testing, automated tests,
+regression tests, etc.).
 
-## Notes for reviewers
-Anything to pay attention to (risk, roll-out, follow-ups)?
+- [ ] Manual Testing
+- [ ] Functional Testing
+- [ ] Unit Testing
 
-Proposed changes
-Write a clear and concise description that helps reviewers understand
-the purpose and impact of your changes. Use the following format:
+## Reviewer Focus (Optional)
+If there are specific areas you would like feedback on, please mention
+them here.
 
-Problem: Give a brief overview of the problem or feature being
-addressed.
+**Closes:** #ISSUE\_NUMBER
 
-Solution: Explain the approach you took to implement the solution,
-highlighting any significant design decisions or considerations.
+## Checklist
 
-Testing: Describe any testing that you did.
+Before submitting this PR, please confirm:
 
-Please focus on (optional): If you any specific areas where you would
-like reviewers to focus their attention or provide specific feedback,
-add them here.
-
-Closes #ISSUE
-
-Checklist
-Before creating a PR, run through this checklist and mark each as
-complete.
-
-- [ ] I have read the CONTRIBUTING doc
-- [ ] I have added tests that prove my fix is effective or that my
-      feature works
-- [ ] I have checked that all unit tests pass after adding my changes
-- [ ] I have updated necessary documentation
-- [ ] I have rebased my branch onto master
-- [ ] I will ensure my PR is targeting the master branch and pulling
-      from my branch from my own fork
+- [ ] I have read the CONTRIBUTING guidelines
+- [ ] I have added tests (if applicable) to validate my changes
+- [ ] All existing tests pass
+- [ ] I have updated documentation where necessary
+- [ ] My branch is rebased on the latest master
+- [ ] This PR targets the master branch from my fork
+- [ ] My commit message follows NGINX standards (imperative mood, clear
+      subject, no period at the end, references related issue if
+      applicable, and contains only relevant changes)
