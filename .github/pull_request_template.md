@@ -5,11 +5,11 @@ What does this change do?
 Why is this change needed?
 
 ## Commit hygiene checklist
-- [ ] Each commit is a single logical change (no mixed refactor +
-      behaviour changes)
+- [ ] Each commit is a single logical change
+      (no mixed refactor + behaviour changes)
 - [ ] Commit subject <= 72 chars
-- [ ] Body lines wrapped after 72 chars (if body exists) (except for
-      things like URLs, command/log output etc)
+- [ ] Body lines wrapped after 72 chars (if body exists)
+      (except for things like URLs, command/log output etc)
 - [ ] (Recommended) Subject uses imperative mood
 - [ ] (Recommended) Subject does not end with a period
 
