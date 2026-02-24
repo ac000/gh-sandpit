@@ -51,5 +51,5 @@ complete.
 - [ ] I have checked that all unit tests pass after adding my changes
 - [ ] I have updated necessary documentation
 - [ ] I have rebased my branch onto master
-- [ ] I will ensure my PR is targeting the main branch and pulling from
-      my branch from my own fork
+- [ ] I will ensure my PR is targeting the master branch and pulling
+      from my branch from my own fork
