@@ -38,5 +38,5 @@ Before submitting this PR, please confirm:
 
 ## Release Notes
 
-If this change affects users, please add a short note here, describing
+If this change affects users, please add a short note here describing
 the impact for release documentation.
