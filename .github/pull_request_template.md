@@ -9,7 +9,7 @@ Why is this change needed?
       (no mixed refactor + behaviour changes)
 - [ ] Commit subject <= 72 chars
 - [ ] Body lines wrapped after 72 chars (if body exists)
-      (except for things like URLs, command/log output etc)
+      (except for things like URIs, command/log output etc)
 - [ ] (Recommended) Subject uses imperative mood
 - [ ] (Recommended) Subject does not end with a period
 
