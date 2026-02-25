@@ -13,14 +13,14 @@ jobs:
       - name: Get project data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ORGANIZATION: "ac000"
+          ORGANIZATION: ac000
           PROJECT_NUMBER: 9
 
         run: |
           gh api graphql -f query='
           query($org: String!, $number: Int!) {
-            user(login: "ac000") {
-              projectV2(number: 9) {
+            user(login: $org) {
+              projectV2(number: $number) {
                 id
                 fields(first:20) {
                   nodes {
