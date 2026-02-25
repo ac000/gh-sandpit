@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Get project data
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           ORGANIZATION: ac000
           PROJECT_NUMBER: 9
 
@@ -45,7 +45,7 @@ jobs:
 
       - name: Set issue date
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           ISSUE_ID: ${{ github.event.issue.node_id }}
 
         run: |
