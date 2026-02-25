@@ -1,0 +1,73 @@
+name: Set issue date
+
+on:
+  issue:
+    types:
+      - opened
+
+jobs:
+  set-issue-date:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Get project data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORGANIZATION: nginx
+          PROJECT_NUMBER: 33
+
+          run: |
+            gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org){
+                projectV2(number: $number) {
+                  id
+                  fields(first:20) {
+                    nodes {
+                      ... on ProjectV2Field {
+                        id
+                        name
+                      }
+                      ... on ProjectV2SingleSelectField {
+                        id
+                        name
+                        options {
+                          id
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER >project_data.json
+
+            echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >>$GITHUB_ENV
+            echo 'DATE_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Created at") | .id' project_data.json) >>$GITHUB_ENV
+
+      - name: Get date
+        run: echo "DATE=$(date +"%Y-%m-%d")" >>$GITHUB_ENV
+
+      - name: Set issue date
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+
+          run: |
+            gh api graphql -f query='
+              mutation {
+                updateProjectV2ItemFieldValue(
+                  input: {
+                    projectId: $PROJECT_ID
+                    itemId: $ISSUE_ID
+                    fieldId: $DATE_FIELD_ID
+                    value: {
+                      text: $DATE
+                    }
+                  }
+                ) {
+                  projectV2Item {
+                    id
+                  }
+                }
+              }'
