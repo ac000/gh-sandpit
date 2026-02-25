@@ -49,7 +49,12 @@ jobs:
 
         run: |
           gh api graphql -f query='
-            mutation {
+            mutation(
+              $project: ID!
+              $issue: ID!
+              $date_field: ID!
+              $date: Date!
+            ) {
               updateProjectV2ItemFieldValue(
                 input: {
                   projectId: $project
