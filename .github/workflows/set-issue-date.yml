@@ -8,8 +8,8 @@ on:
 jobs:
   set-issue-date:
     runs-on: ubuntu-latest
-    steps:
 
+    steps:
       - name: Get project data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
