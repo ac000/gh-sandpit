@@ -24,7 +24,7 @@ jobs:
                   id
                   fields(first:20) {
                     nodes {
-                      ... on ProjectV2Field {
+                      ... on ProjectV2FieldCommon {
                         id
                         name
                       }
@@ -39,13 +39,29 @@ jobs:
           echo 'PROJECT_ID='$(jq '.data.user.projectV2.id' project_data.json) >>$GITHUB_ENV
           echo 'DATE_FIELD_ID='$(jq '.data.user.projectV2.fields.nodes[] | select(.name == "Created at") | .id' project_data.json) >>$GITHUB_ENV
 
-      - name: Get date
-        run: echo "DATE=$(date +"%Y-%m-%d")" >>$GITHUB_ENV
+      - name: Add issue to project
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+
+        run: |
+          item_id="$( gh api graphql -f query='
+            mutation($project:ID!, $issue:ID!) {
+              addProjectV2ItemById(
+                input: {
+                  projectId: $project, contentId: $issue
+                }) {
+                  item {
+                    id
+                  }
+                }
+              }' -f project=$PROJECT_ID -f pr=$ISSUE_ID --jq '.data.addProjectV2ItemById.item.id')"
+          echo 'ITEM_ID='$item_id >>$GITHUB_ENV
 
       - name: Set issue date
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-          ISSUE_ID: ${{ github.event.issue.node_id }}
+          DATE: ${{ github.event.issue.created_at }}
 
         run: |
           gh api graphql -f query='
@@ -58,7 +74,7 @@ jobs:
               updateProjectV2ItemFieldValue(
                 input: {
                   projectId: $project
-                  itemId: $issue
+                  itemId: $item
                   fieldId: $date_field
                   value: {
                     date: $date
@@ -68,4 +84,4 @@ jobs:
                     id
                   }
                 }
-            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID -f date_field=$DATE_FIELD_ID -f date=$DATE
+            }' -f project=$PROJECT_ID -f issue=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date=$DATE
