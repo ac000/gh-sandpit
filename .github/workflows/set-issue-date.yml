@@ -17,7 +17,6 @@ jobs:
           PROJECT_NUMBER: 9
 
         run: |
-          sleep 10
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
               user(login: $org) {
@@ -53,16 +52,15 @@ jobs:
             mutation {
               updateProjectV2ItemFieldValue(
                 input: {
-                  projectId: $PROJECT_ID
-                  itemId: $ISSUE_ID
-                  fieldId: $DATE_FIELD_ID
+                  projectId: $project
+                  itemId: $issue
+                  fieldId: $date_field
                   value: {
-                    text: $DATE
+                    date: $date
+                  }
+                }) {
+                  projectV2Item {
+                    id
                   }
                 }
-              ) {
-                projectV2Item {
-                  id
-                }
-              }
-            }'
+            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID -f date_field=$DATE_FIELD_ID -f date=$DATE
