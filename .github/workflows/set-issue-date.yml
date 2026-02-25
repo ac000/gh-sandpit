@@ -67,7 +67,7 @@ jobs:
           gh api graphql -f query='
             mutation(
               $project: ID!
-              $issue: ID!
+              $item: ID!
               $date_field: ID!
               $date: Date!
             ) {
@@ -84,4 +84,4 @@ jobs:
                     id
                   }
                 }
-            }' -f project=$PROJECT_ID -f issue=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date=$DATE
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date=$DATE
