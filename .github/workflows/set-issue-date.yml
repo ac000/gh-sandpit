@@ -16,34 +16,34 @@ jobs:
           ORGANIZATION: nginx
           PROJECT_NUMBER: 33
 
-          run: |
-            gh api graphql -f query='
-            query($org: String!, $number: Int!) {
-              organization(login: $org){
-                projectV2(number: $number) {
-                  id
-                  fields(first:20) {
-                    nodes {
-                      ... on ProjectV2Field {
+        run: |
+          gh api graphql -f query='
+          query($org: String!, $number: Int!) {
+            organization(login: $org){
+              projectV2(number: $number) {
+                id
+                fields(first:20) {
+                  nodes {
+                    ... on ProjectV2Field {
+                      id
+                      name
+                    }
+                    ... on ProjectV2SingleSelectField {
+                      id
+                      name
+                      options {
                         id
                         name
-                      }
-                      ... on ProjectV2SingleSelectField {
-                        id
-                        name
-                        options {
-                          id
-                          name
-                        }
                       }
                     }
                   }
                 }
               }
-            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER >project_data.json
+            }
+          }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER >project_data.json
 
-            echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >>$GITHUB_ENV
-            echo 'DATE_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Created at") | .id' project_data.json) >>$GITHUB_ENV
+          echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >>$GITHUB_ENV
+          echo 'DATE_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Created at") | .id' project_data.json) >>$GITHUB_ENV
 
       - name: Get date
         run: echo "DATE=$(date +"%Y-%m-%d")" >>$GITHUB_ENV
@@ -53,21 +53,21 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_ID: ${{ github.event.issue.node_id }}
 
-          run: |
-            gh api graphql -f query='
-              mutation {
-                updateProjectV2ItemFieldValue(
-                  input: {
-                    projectId: $PROJECT_ID
-                    itemId: $ISSUE_ID
-                    fieldId: $DATE_FIELD_ID
-                    value: {
-                      text: $DATE
-                    }
-                  }
-                ) {
-                  projectV2Item {
-                    id
+        run: |
+          gh api graphql -f query='
+            mutation {
+              updateProjectV2ItemFieldValue(
+                input: {
+                  projectId: $PROJECT_ID
+                  itemId: $ISSUE_ID
+                  fieldId: $DATE_FIELD_ID
+                  value: {
+                    text: $DATE
                   }
                 }
-              }'
+              ) {
+                projectV2Item {
+                  id
+                }
+              }
+            }'
