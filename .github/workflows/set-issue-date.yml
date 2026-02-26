@@ -1,6 +1,6 @@
 name: Set issue date
 
-on: [issues, pull-request]
+on: [issue, pull-request]
   types:
     - opened
 
