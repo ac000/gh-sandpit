@@ -49,9 +49,9 @@ jobs:
 
         run: |
           if [ "${{ github.event_name }}" = "issues" ]; then
-            ITEM_ID=${{ github.event.issue.node_id }}
+            PRI_ID=${{ github.event.issue.node_id }}
           else
-            ITEM_ID=${{ github.event.pull_request.node_id }}
+            PRI_ID=${{ github.event.pull_request.node_id }}
           fi
 
           item_id="$( gh api graphql -f query='
@@ -64,7 +64,7 @@ jobs:
                     id
                   }
                 }
-              }' -f project=$PROJECT_ID -f item=$ITEM_ID --jq '.data.addProjectV2ItemById.item.id')"
+              }' -f project=$PROJECT_ID -f item=$PRI_ID --jq '.data.addProjectV2ItemById.item.id')"
           echo 'ITEM_ID='$item_id >>$GITHUB_ENV
 
       - name: Set issue date
