@@ -73,9 +73,9 @@ jobs:
 
         run: |
           if [ "${{ github.event_name }}" = "issues" ]; then
-            DATE=${{ github.event.issue.node_id }}
+            DATE=${{ github.event.issue.created_at }}
           else
-            DATE=${{ github.event.pull_request.node_id }}
+            DATE=${{ github.event.pull_request.created_at }}
           fi
 
           gh api graphql -f query='
