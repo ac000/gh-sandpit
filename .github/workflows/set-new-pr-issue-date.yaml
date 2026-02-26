@@ -5,8 +5,12 @@ on:
     types:
       - opened
   pull_request:
+    branches: master
     types:
       - opened
+
+env:
+  GH_TOKEN: ${{ secrets.PROJECT_PAT }}
 
 jobs:
   set-issue-date:
@@ -15,10 +19,8 @@ jobs:
     steps:
       - name: Get project data
         env:
-          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
           ORGANIZATION: ac000
           PROJECT_NUMBER: 9
-
         run: |
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
@@ -44,9 +46,6 @@ jobs:
 
       # Needed to get the item's Global ID
       - name: Add pull-request/issue to project
-        env:
-          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-
         run: |
           if [ "${{ github.event_name }}" = "issues" ]; then
             PRI_ID=${{ github.event.issue.node_id }}
@@ -68,9 +67,6 @@ jobs:
           echo 'ITEM_ID='$item_id >>$GITHUB_ENV
 
       - name: Set pull-request/issue creation date
-        env:
-          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-
         run: |
           if [ "${{ github.event_name }}" = "issues" ]; then
             DATE=${{ github.event.issue.created_at }}
