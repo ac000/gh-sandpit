@@ -1,4 +1,4 @@
-name: Set issue date
+name: Set new pull-requests & issues creation date
 
 on:
   issues:
@@ -42,8 +42,8 @@ jobs:
           echo 'PROJECT_ID='$(jq '.data.user.projectV2.id' project_data.json) >>$GITHUB_ENV
           echo 'DATE_FIELD_ID='$(jq '.data.user.projectV2.fields.nodes[] | select(.name == "Created at") | .id' project_data.json) >>$GITHUB_ENV
 
-      # Needed to get the issue's Global ID
-      - name: Add issue to project
+      # Needed to get the item's Global ID
+      - name: Add pull-request/issue to project
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
 
@@ -67,7 +67,7 @@ jobs:
               }' -f project=$PROJECT_ID -f item=$PRI_ID --jq '.data.addProjectV2ItemById.item.id')"
           echo 'ITEM_ID='$item_id >>$GITHUB_ENV
 
-      - name: Set issue date
+      - name: Set pull-request/issue creation date
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
 
