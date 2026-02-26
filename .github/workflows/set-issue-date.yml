@@ -1,9 +1,8 @@
 name: Set issue date
 
-on:
-  issues:
-    types:
-      - opened
+on: [issues, pull-request]
+  types:
+    - opened
 
 jobs:
   set-issue-date:
@@ -39,23 +38,30 @@ jobs:
           echo 'PROJECT_ID='$(jq '.data.user.projectV2.id' project_data.json) >>$GITHUB_ENV
           echo 'DATE_FIELD_ID='$(jq '.data.user.projectV2.fields.nodes[] | select(.name == "Created at") | .id' project_data.json) >>$GITHUB_ENV
 
+      # Needed to get the issue's Global ID
       - name: Add issue to project
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-          ISSUE_ID: ${{ github.event.issue.node_id }}
+          ITEM_ID: ${{ github.event.issue.node_id }}
+        if: github.event_name == 'issue'
+
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+          ITEM_ID: ${{ github.event.pull-request.node_id }}
+        if: github.event_name == 'pull-request'
 
         run: |
           item_id="$( gh api graphql -f query='
-            mutation($project:ID!, $issue:ID!) {
+            mutation($project:ID!, $item:ID!) {
               addProjectV2ItemById(
                 input: {
-                  projectId: $project, contentId: $issue
+                  projectId: $project, contentId: $item
                 }) {
                   item {
                     id
                   }
                 }
-              }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectV2ItemById.item.id')"
+              }' -f project=$PROJECT_ID -f issue=$ITEM_ID --jq '.data.addProjectV2ItemById.item.id')"
           echo 'ITEM_ID='$item_id >>$GITHUB_ENV
 
       - name: Set issue date
