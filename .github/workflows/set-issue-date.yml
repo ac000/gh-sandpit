@@ -46,15 +46,14 @@ jobs:
       - name: Add issue to project
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-          ITEM_ID: ${{ github.event.issue.node_id }}
-        if: github.event_name == 'issue'
-
-        env:
-          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-          ITEM_ID: ${{ github.event.pull_request.node_id }}
-        if: github.event_name == 'pull_request'
 
         run: |
+          if [ "${{ github.event_name }}" = "issue" ]; then
+            ITEM_ID=${{ github.event.issue.node_id }}
+          else
+            ITEM_ID=${{ github.event.pull_request.node_id }}
+          fi
+
           item_id="$( gh api graphql -f query='
             mutation($project:ID!, $item:ID!) {
               addProjectV2ItemById(
@@ -71,9 +70,14 @@ jobs:
       - name: Set issue date
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-          DATE: ${{ github.event.issue.created_at }}
 
         run: |
+          if [ "${{ github.event_name }}" = "issue" ]; then
+            DATE=${{ github.event.issue.node_id }}
+          else
+            DATE=${{ github.event.pull_request.node_id }}
+          fi
+
           gh api graphql -f query='
             mutation(
               $project: ID!
