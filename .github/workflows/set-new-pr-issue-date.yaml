@@ -1,12 +1,8 @@
 name: Set new pull-requests & issues creation date
 
-on:
-  issues:
-    types:
-      - opened
-  pull_request:
-    types:
-      - opened
+on: [issues, pull_request]
+  types:
+    - opened
 
 jobs:
   set-issue-date:
