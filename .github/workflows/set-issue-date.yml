@@ -1,6 +1,6 @@
 name: Set issue date
 
-on: [issue, pull-request]
+on: [issues, pull_request]
   types:
     - opened
 
@@ -47,8 +47,8 @@ jobs:
 
         env:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
-          ITEM_ID: ${{ github.event.pull-request.node_id }}
-        if: github.event_name == 'pull-request'
+          ITEM_ID: ${{ github.event.pull_request.node_id }}
+        if: github.event_name == 'pull_request'
 
         run: |
           item_id="$( gh api graphql -f query='
