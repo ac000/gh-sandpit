@@ -1,8 +1,12 @@
 name: Set issue date
 
-on: [issues, pull_request]
-  types:
-    - opened
+on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
 
 jobs:
   set-issue-date:
