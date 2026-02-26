@@ -48,7 +48,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
 
         run: |
-          if [ "${{ github.event_name }}" = "issue" ]; then
+          if [ "${{ github.event_name }}" = "issues" ]; then
             ITEM_ID=${{ github.event.issue.node_id }}
           else
             ITEM_ID=${{ github.event.pull_request.node_id }}
@@ -64,7 +64,7 @@ jobs:
                     id
                   }
                 }
-              }' -f project=$PROJECT_ID -f issue=$ITEM_ID --jq '.data.addProjectV2ItemById.item.id')"
+              }' -f project=$PROJECT_ID -f item=$ITEM_ID --jq '.data.addProjectV2ItemById.item.id')"
           echo 'ITEM_ID='$item_id >>$GITHUB_ENV
 
       - name: Set issue date
@@ -72,7 +72,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
 
         run: |
-          if [ "${{ github.event_name }}" = "issue" ]; then
+          if [ "${{ github.event_name }}" = "issues" ]; then
             DATE=${{ github.event.issue.node_id }}
           else
             DATE=${{ github.event.pull_request.node_id }}
