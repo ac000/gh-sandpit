@@ -53,7 +53,7 @@ jobs:
             PRI_ID=${{ github.event.pull_request.node_id }}
           fi
 
-          item_id="$( gh api graphql -f query='
+          item_id="$(gh api graphql -f query='
             mutation($project:ID!, $item:ID!) {
               addProjectV2ItemById(
                 input: {
