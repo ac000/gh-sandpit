@@ -27,10 +27,9 @@ while (<>) {
 	$body .= $_;
 }
 
-print $subject;
-print $body;
-
-print "\n";
+#print $subject;
+#print $body;
+#print "\n";
 
 sub chk_sub_period {
 	# Commits prior to b0067b685 ("Regen after makefile changes.")
