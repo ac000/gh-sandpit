@@ -29,6 +29,8 @@ jobs:
           if test $? -ne 0
           then
             err=1
+          else
+            echo "ok"
           fi
         done <<< $(git rev-list --oneline ${{github.event.pull_request.base.sha}}..${{github.event.pull_request.head.sha}})
 
