@@ -15,6 +15,13 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: git-rev-list
+      run: |
+        while read hash subj
+        do
+          echo "Checking: $hash (\"$subj\")"
+        done <<< $(git rev-list --oneline ${{github.event.pull_request.base.sha}}..${{github.event.pull_request.head.sha}})
+
     - name: check-commits.sh
       run: |
         echo "----"
