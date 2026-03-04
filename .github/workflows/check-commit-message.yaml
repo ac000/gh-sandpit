@@ -22,6 +22,7 @@ jobs:
       id: check_out
       run: |
         err=0
+        pwd
         while read hash subj
         do
           echo "Checking: $hash (\"$subj\")"
