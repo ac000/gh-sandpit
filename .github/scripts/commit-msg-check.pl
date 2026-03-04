@@ -1,7 +1,9 @@
 #!/usr/bin/env perl
 
 #
-# git {log,show} -s --format=%B
+# Takes input in the form
+#
+#   git show -s --format=%B <hash>
 #
 
 use strict;
