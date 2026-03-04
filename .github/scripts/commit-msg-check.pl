@@ -30,24 +30,20 @@ while (<>) {
 }
 
 sub chk_sub_length {
-	chomp($subject);
 	if (length($subject) > $LINE_LENGTH_LIMIT) {
 		print $E . "Subject is longer than " . $LINE_LENGTH_LIMIT .
 		      " characters\n";
 	}
 }
 
-sub chk_sub_period {
-	# Commits prior to b0067b685 ("Regen after makefile changes.")
-	# did not use a period.
-	#
-	# Some current commits do not use one e.g. 1f57d8dc9
-	# ("nginx-1.29.5-RELEASE").
-	#
-	# Not using a period would be conventional. Email subjects don't
-	# generally have it. Headings in texts/documents/web pages etc
-	# don't use one.
-	print $E . "Subject ends with a period\n" if $subject =~ /.*\.$/;
+sub chk_sub_prefix_cap {
+	if ($subject =~ /^[a-z][a-zA-Z_-]*: /) {
+		print $E . "Subject prefix should be capitalised\n";
+	}
+
+	if ($subject =~ /^[A-Z][a-zA-Z_-]*: [A-z]/) {
+		print $E . "First word after the prefix should be lower case\n";
+	}
 }
 
 sub chk_body_blank_line {
@@ -94,8 +90,9 @@ sub chk_body_line_length {
 	}
 }
 
+chomp($subject);
 chk_sub_length();
-chk_sub_period();
+chk_sub_prefix_cap();
 
 chk_body_blank_line();
 chk_body_trailers();
