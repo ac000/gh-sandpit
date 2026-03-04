@@ -1,5 +1,7 @@
 #!/usr/bin/env perl
 
+# Copyright (C) Nginx, Inc.
+
 #
 # Takes input in the form
 #
@@ -30,7 +32,8 @@ while (<>) {
 sub chk_sub_length {
 	chomp($subject);
 	if (length($subject) > $LINE_LENGTH_LIMIT) {
-		print $E . "Subject is longer than " . $LINE_LENGTH_LIMIT . " characters\n";
+		print $E . "Subject is longer than " . $LINE_LENGTH_LIMIT .
+		      " characters\n";
 	}
 }
 
@@ -72,7 +75,7 @@ sub chk_body_trailers {
 sub chk_body_line_length {
 	foreach (split(/\n/, $body)) {
 		# Ignore indented lines for command/log output etc and URLs.
-		if (/^[ \t]/ || /https?:\/\//) {
+		if (/^[ \t]/ || /https?:\/\// || /ftp:\/\//) {
 			next;
 		}
 
