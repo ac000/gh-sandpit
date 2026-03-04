@@ -21,7 +21,7 @@ jobs:
     - name: check-commits.sh
       id: check_out
       run: |
-        err=0
+        err=
         pwd
         while read hash subj
         do
@@ -29,11 +29,11 @@ jobs:
           git show -s --format=%B $hash | .github/scripts/commit-msg-check.pl
           if test $?
           then
-            $err=1
+            err=1
           fi
         done <<< $(git rev-list --oneline ${{github.event.pull_request.base.sha}}..${{github.event.pull_request.head.sha}})
 
-        if test $err
+        if test -n "${err}"
         then
           exit 2
         fi
