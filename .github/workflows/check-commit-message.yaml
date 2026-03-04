@@ -30,7 +30,7 @@ jobs:
           then
             $err=1
           fi
-        done <<< $(git rev-list --oneline ${{github.event.pull_request.base.sha}}..${{github.event.pull_reqauest.head.sha}})
+        done <<< $(git rev-list --oneline ${{github.event.pull_request.base.sha}}..${{github.event.pull_request.head.sha}})
 
         if test $err
         then
