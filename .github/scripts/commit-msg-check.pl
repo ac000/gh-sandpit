@@ -41,7 +41,7 @@ sub chk_sub_prefix_cap {
 		print $E . "Subject prefix should be capitalised\n";
 	}
 
-	if ($subject =~ /^[A-Z][a-zA-Z_-]*: [A-z]/) {
+	if ($subject =~ /^[a-zA-Z_-]*: [A-z]/) {
 		print $E . "First word after the prefix should be lower case\n";
 	}
 }
