@@ -15,11 +15,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: git-rev-list
-      run: git rev-list ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
-
     - name: check-commits.sh
-      id: check_out
       run: |
         err=0
         while read hash subj
