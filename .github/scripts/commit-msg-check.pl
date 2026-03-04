@@ -20,21 +20,15 @@ my $LINE_LENGTH_LIMIT = 72;
 
 my $subject = <>;
 my $body;
-my $err = 0;
 
 while (<>) {
 	$body .= $_;
 }
 
-#print $subject;
-#print $body;
-#print "\n";
-
 sub chk_sub_length {
 	chomp($subject);
 	if (length($subject) > $LINE_LENGTH_LIMIT) {
 		print $E . "Subject is longer than " . $LINE_LENGTH_LIMIT . " characters\n";
-		$err = 1;
 	}
 }
 
@@ -54,7 +48,6 @@ sub chk_sub_period {
 sub chk_body_blank_line {
 	if (($body =~ /^(.*)/)[0]) {
 		print $E . "Commit message body should be separated from the subject by a blank line\n";
-		$err = 1;
 	}
 }
 
@@ -65,7 +58,6 @@ sub chk_body_trailers {
 		if (/^[a-zA-Z-]*: /) {
 			if ($prev_line ne "") {
 				print $E . "Commit tags/trailers should be separated from the commit message body by a blank line\n";
-				$err = 1;
 			}
 
 			last;
@@ -92,7 +84,6 @@ sub chk_body_line_length {
 		}
 
 		print $E . "One or more body lines exceed " . $LINE_LENGTH_LIMIT . " characters. Indent command/log output etc lines to quell this error\n";
-		$err = 1;
 
 		last;
 	}
@@ -104,5 +95,3 @@ chk_sub_period();
 chk_body_blank_line();
 chk_body_trailers();
 chk_body_line_length();
-
-exit $err;
