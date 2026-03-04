@@ -20,7 +20,6 @@ my $LINE_LENGTH_LIMIT = 72;
 
 my $subject = <>;
 my $body;
-my $body_line_length_warn = 0;
 my $err = 0;
 
 while (<>) {
@@ -30,6 +29,14 @@ while (<>) {
 #print $subject;
 #print $body;
 #print "\n";
+
+sub chk_sub_length {
+	chomp($subject);
+	if (length($subject) > $LINE_LENGTH_LIMIT) {
+		print $E . "Subject is longer than " . $LINE_LENGTH_LIMIT . " characters\n";
+		$err = 1;
+	}
+}
 
 sub chk_sub_period {
 	# Commits prior to b0067b685 ("Regen after makefile changes.")
@@ -42,13 +49,6 @@ sub chk_sub_period {
 	# generally have it. Headings in texts/documents/web pages etc
 	# don't use one.
 	print $E . "Subject ends with a period\n" if $subject =~ /.*\.$/;
-}
-
-sub chk_sub_length {
-	if (length($subject) > $LINE_LENGTH_LIMIT) {
-		print $E . "Subject is longer than " . $LINE_LENGTH_LIMIT . " characters\n";
-		$err = 1;
-	}
 }
 
 sub chk_body_blank_line {
@@ -87,15 +87,14 @@ sub chk_body_line_length {
 			last;
 		}
 
-		if (length($_) > $LINE_LENGTH_LIMIT) {
-			$body_line_length_warn = 1;
-			last;
+		if (length($_) <= $LINE_LENGTH_LIMIT) {
+			next;
 		}
-	}
 
-	if ($body_line_length_warn > 0) {
 		print $E . "One or more body lines exceed " . $LINE_LENGTH_LIMIT . " characters. Indent command/log output etc lines to quell this error\n";
 		$err = 1;
+
+		last;
 	}
 }
 
