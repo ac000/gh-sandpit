@@ -83,7 +83,7 @@ sub chk_body_line_length {
 			next;
 		}
 
-		print $E . "One or more body lines exceed " . $LINE_LENGTH_LIMIT . " characters. Indent command/log output etc lines to quell this error\n";
+		print $E . "One or more body lines exceed " . $LINE_LENGTH_LIMIT . " characters. (Indent command/log output etc lines to quell this error)\n";
 
 		last;
 	}
