@@ -24,13 +24,13 @@ jobs:
         err=0
         while read hash subj
         do
-          echo "Checking: $hash (\"$subj\")"
+          echo "Checking: $hash $subj"
           git show -s --format=%B $hash | .github/scripts/commit-msg-check.pl
           if test $?
           then
             $err=1
           fi
-        done <<< $(git log --pretty=format:"%h %s" ${{github.event.pull_request.base.sha}}..)
+        done <<< $(git rev-list --pretty=format:'%h ("%s")' ${{github.event.pull_request.base.sha}}..${{github.event.pull_reqauest.head.sha}})
 
         if test $err
         then
