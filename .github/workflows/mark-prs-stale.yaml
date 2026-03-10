@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Mark stale pull requests
-        uses: actions/stale@v5
+        uses: actions/stale@v10
         with:
           stale-pr-message: "This pull-request has been automatically marked 'stale' because it has been inactive for **${{ env.PR_STALE_DAYS }}** days.
 
