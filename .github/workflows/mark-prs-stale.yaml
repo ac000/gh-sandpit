@@ -18,10 +18,10 @@ jobs:
       - name: Mark stale pull requests
         uses: actions/stale@v5
         with:
-          stale-pr-message: "This pull-request has been automatically marked 'stale' because it has been inactive for more than ${{ env.PR_STALE_DAYS }} days.
+          stale-pr-message: "This pull-request has been automatically marked 'stale' because it has been inactive for **${{ env.PR_STALE_DAYS }}** days.
 
-It will be automatically closed after ${{ env.PR_CLOSE_DAYS }} days of inactivity."
-          close-pr-message: "This pull-request has been automatically closed because it has been inactive for ${{ env.PR_CLOSE_DAYS }} days."
+It will be automatically closed after **${{ env.PR_CLOSE_DAYS }}** days of inactivity."
+          close-pr-message: "This pull-request has been automatically closed because it has been inactive for **${{ env.PR_CLOSE_DAYS }}** days."
           days-before-issue-stale: -1
           days-before-issue-close: -1
           days-before-stale: ${{ env.PR_STALE_DAYS }}
