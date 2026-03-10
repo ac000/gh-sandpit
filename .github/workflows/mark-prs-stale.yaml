@@ -2,7 +2,7 @@ name: Mark Stale Pull Requests
 
 on:
   schedule:
-    - cron: '55 20 * * *'  # Run every day at 02:22
+    - cron: '07 21 * * *'  # Run every day at 02:22
 
 env:
   PR_STALE_DAYS: 1
