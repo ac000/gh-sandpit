@@ -20,11 +20,7 @@ jobs:
             const username = context.payload.issue.user.login;
 
             const comment = [
-              `Hey @${username} — thanks for opening an issue!`,
-              ``,
-              `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-              ``,
-              `Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+              `👋 Thanks for opening this issue and contributing to the NGINX project! A maintainer will review it and follow up when possible. We appreciate your support.`
             ].join('\n');
 
             await github.rest.issues.createComment({
