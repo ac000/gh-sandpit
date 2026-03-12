@@ -14,8 +14,7 @@ jobs:
 
       steps:
         - name: Calculate
-          run: |
-          echo ::set-env name=PR_TOTAL_DAYS::$(($PR_STALE_DAYS+$PR_CLOSE_DAYS))
+          run: echo ::set-env name=PR_TOTAL_DAYS::$(($PR_STALE_DAYS+$PR_CLOSE_DAYS))
 
         - name: Display
           run: echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
