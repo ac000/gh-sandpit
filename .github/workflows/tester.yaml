@@ -7,7 +7,6 @@ on:
 env:
   PR_STALE_DAYS: 1  # 180
   PR_CLOSE_DAYS: 2  # 90
-  PR_TOTAL_DAYS:
 
 jobs:
     tester:
@@ -18,7 +17,7 @@ jobs:
           id: calculate
           run: |
             PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))
-            echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
+            echo "PR_TOTAL_DAYS = ${{ env.PR_TOTAL_DAYS }}"
 
         - name: Display
           run: echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
