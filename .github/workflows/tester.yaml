@@ -16,7 +16,9 @@ jobs:
       steps:
         - name: Calculate
           id: calculate
-          run: echo "PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))"
+          run: |
+            PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))
+            echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
 
         - name: Display
           run: echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
