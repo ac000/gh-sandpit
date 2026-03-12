@@ -15,8 +15,10 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Calculate total PR close days
+        run: echo ::set-env name=PR_TOTAL_DAYS=$(($PR_STALE_DAYS+$PR_CLOSE_DAYS))
+
       - name: Mark stale pull requests
-      - run: echo ::set-env name=PR_TOTAL_DAYS=$(($PR_STALE_DAYS+$PR_CLOSE_DAYS))
         uses: actions/stale@v10
         with:
           stale-pr-message: "This pull-request has been automatically marked 'stale' because it has been inactive for **${{ env.PR_STALE_DAYS }}** days.
