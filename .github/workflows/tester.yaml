@@ -19,4 +19,6 @@ jobs:
             echo "PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))" >>"$GITHUB_OUTPUT"
 
         - name: Display
+          env:
+            PR_TOTAL_DAYS: ${{ steps.calculate.outputs.PR_TOTAL_DAYS }}
           run: echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
