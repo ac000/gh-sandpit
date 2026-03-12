@@ -14,8 +14,8 @@ jobs:
 
       steps:
         - name: Checkout
-          run: REPO=ac000/libac
+          - run: REPO=ac000/libac
 
-          uses: actions/checkout@v5
-          with:
-                repository: $REPO
+          - uses: actions/checkout@v5
+            with:
+              repository: $REPO
