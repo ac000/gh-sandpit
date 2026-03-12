@@ -7,6 +7,7 @@ on:
 env:
   PR_STALE_DAYS: 1  # 180
   PR_CLOSE_DAYS: 2  # 90
+  PR_TOTAL_DAYS:
 
 jobs:
     tester:
