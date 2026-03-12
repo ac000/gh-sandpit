@@ -17,7 +17,7 @@ jobs:
     name: Mark/close stale pull-requests
     steps:
       - run: |
-        echo "PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))" >>"$GITHUB_ENV"
+          echo "PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))" >>"$GITHUB_ENV"
 
       - uses: actions/stale@v10
         with:
