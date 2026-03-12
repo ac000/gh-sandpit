@@ -13,12 +13,9 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - name: Calculate
-          id: calculate
-          run: |
-            echo "PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))" >>"$GITHUB_OUTPUT"
+        - name: Checkout
+          run: REPO=ac000/libac
 
-        - name: Display
-          env:
-            PR_TOTAL_DAYS: ${{ steps.calculate.outputs.PR_TOTAL_DAYS }}
-          run: echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
+          uses: actions/checkout@v5
+          with:
+                repository: $REPO
