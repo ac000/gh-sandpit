@@ -1,0 +1,20 @@
+name: Tester
+
+on:
+  issues:
+    types: [opened]
+
+env:
+  PR_STALE_DAYS: 1  # 180
+  PR_CLOSE_DAYS: 2  # 90
+
+jobs:
+    tester:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Calculate
+          run: echo ::set-env name=PR_TOTAL_DAYS=$(($PR_STALE_DAYS+$PR_CLOSE_DAYS))
+
+        - name: Display
+          run: echo $PR_TOTAL_DAYS
