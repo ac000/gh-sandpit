@@ -14,8 +14,8 @@ jobs:
 
       name: Checkout
       steps:
-        - run: REPO=ac000/libac
+        - run: echo "REPO=ac000/libac" >>"$GITHUB_ENV"
 
         - uses: actions/checkout@v5
           with:
-            repository: $REPO
+            repository: ${{ env.REPO }}
