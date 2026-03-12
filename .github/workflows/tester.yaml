@@ -17,4 +17,4 @@ jobs:
           run: echo ::set-env name=PR_TOTAL_DAYS=$(($PR_STALE_DAYS+$PR_CLOSE_DAYS))
 
         - name: Display
-          run: echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
+          run: echo "PR_TOTAL_DAYS = ${{ env.$PR_TOTAL_DAYS }}"
