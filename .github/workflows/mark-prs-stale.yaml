@@ -6,7 +6,7 @@ on:
 
 env:
   PR_STALE_DAYS: 1  # 180
-  PR_CLOSE_DAYS: 2  # 90
+  PR_CLOSE_DAYS: 1  # 90
 
 jobs:
   mark_stale_prs:
@@ -14,12 +14,12 @@ jobs:
     permissions:
       pull-requests: write
 
+    name: Mark/close stale pull-requests
     steps:
-      - name: Calculate total PR close days
-        run: echo ::set-env name=PR_TOTAL_DAYS=$(($PR_STALE_DAYS+$PR_CLOSE_DAYS))
+      - run: |
+        echo "PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))" >>"$GITHUB_ENV"
 
-      - name: Mark stale pull requests
-        uses: actions/stale@v10
+      - uses: actions/stale@v10
         with:
           stale-pr-message: "This pull-request has been automatically marked 'stale' because it has been inactive for **${{ env.PR_STALE_DAYS }}** days.
 
