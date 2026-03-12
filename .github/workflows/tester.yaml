@@ -16,8 +16,7 @@ jobs:
         - name: Calculate
           id: calculate
           run: |
-            PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))
-            echo "PR_TOTAL_DAYS = ${{ env.PR_TOTAL_DAYS }}"
+            echo "PR_TOTAL_DAYS=$((PR_STALE_DAYS+PR_CLOSE_DAYS))" >>"$GITHUB_OUTPUT"
 
         - name: Display
           run: echo "PR_TOTAL_DAYS = $PR_TOTAL_DAYS"
