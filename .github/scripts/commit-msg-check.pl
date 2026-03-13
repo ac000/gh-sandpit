@@ -36,11 +36,11 @@ sub chk_sub_length {
 	}
 }
 
-my $sub_prefix_excemptions = qr/gRPC: /;
-
 sub chk_sub_prefix_cap {
+	my $excemptions = qr/gRPC: /;
+
 	if ($subject =~ /^[a-z][a-zA-Z_-]*: /) {
-		if ($subject =~ /^((?!$sub_prefix_excemptions).)*$/) {
+		if ($subject =~ /^((?!$excemptions).)*$/) {
 			print $E . "Subject prefix should be capitalised\n";
 		}
 	}
