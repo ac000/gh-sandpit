@@ -38,7 +38,9 @@ sub chk_sub_length {
 
 sub chk_sub_prefix_cap {
 	if ($subject =~ /^[a-z][a-zA-Z_-]*: /) {
-		print $E . "Subject prefix should be capitalised\n";
+		if ($subject =~ /!^gRPC: /) {
+			print $E . "Subject prefix should be capitalised\n";
+		}
 	}
 
 	if ($subject =~ /^[a-zA-Z_-]*: [A-Z]/) {
