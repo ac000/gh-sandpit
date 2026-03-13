@@ -36,9 +36,7 @@ sub chk_sub_length {
 	}
 }
 
-my $sub_prefix_excemptions = "
-	gRPC: |
-	uMC: "
+my $sub_prefix_excemptions = qr/gRPC: /;
 
 sub chk_sub_prefix_cap {
 	if ($subject =~ /^[a-z][a-zA-Z_-]*: /) {
