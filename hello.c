@@ -6,6 +6,8 @@
 
 /* Fifth comment */
 
+/* Sixth comment */
+
 int main(void)
 {
 	printf("Hello World!!!\n");
