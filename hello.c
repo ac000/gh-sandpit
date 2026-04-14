@@ -4,6 +4,8 @@
 
 /* Second comment */
 
+/* Fifth comment */
+
 int main(void)
 {
 	printf("Hello World!!!\n");
