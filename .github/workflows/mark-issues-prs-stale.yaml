@@ -20,7 +20,9 @@ jobs:
       - uses: actions/stale@b5d41d4e1d5dceea10e7104786b73624c18a190f # v10
         with:
           stale-pr-message: "This pull-request has been automatically marked 'stale' because it has been inactive for **${{ env.STALE_DAYS }}** days."
-          stale-issue-message: "This issue has been automatically marked 'stale' because it has been inactive for **${{ env.STALE_DAYS }}** days."
+          stale-issue-message: "This issue has been automatically marked 'stale' because it has been inactive for **${{ env.STALE_DAYS }}** days.
+
+Please close this issue if it's no longer valid"
           days-before-stale: ${{ env.STALE_DAYS }}
           days-before-close: -1
           stale-pr-label: stale
