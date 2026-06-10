@@ -2,7 +2,7 @@
 Contributing
 ============
 
-When sending code, please either send signed-off patches or a pull request
+When sending code, please either send signed-off patches or a pull request 
 with signed-off commits. This means adding a line that says
 "Signed-off-by: Name \<Email\>" at the end of each commit. E.g.
 
