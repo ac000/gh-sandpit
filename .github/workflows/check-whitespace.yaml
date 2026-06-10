@@ -23,7 +23,6 @@ jobs:
         do
           case "${dash}" in
           "---")
-            err=0
             commit="${hash} (\"${subj}\")"
             ;;
           "")
