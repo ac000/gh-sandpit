@@ -15,6 +15,7 @@ jobs:
     - name: Check git log
       run: |
         echo "## Check for 'Version bump' commit" >${GITHUB_STEP_SUMMARY}
+        git log --format=%s $(git describe --abbrev=0 --tags)..
         subj=$(git log --format=%s $(git describe --abbrev=0 --tags).. | tail -1)
         if ! expr "$subj" : 'Version bump' >/dev/null
         then
